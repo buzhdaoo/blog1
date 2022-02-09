@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en">
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
+    <link rel="stylesheet" href="../../static/css/typo.css" th:href="@{/css/typo.css}">
+    <link rel="stylesheet" href="../../static/css/animate.css" th:href="@{/css/animate.css}">
+    <link rel="stylesheet" href="../../static/lib/prism/prism.css" th:href="@{/lib/prism/prism.css}">
+    <link rel="stylesheet" href="../../static/lib/tocbot/tocbot.css" th:href="@{/lib/tocbot/tocbot.css}">
+    <title></title>
+</head>
+<body>
+
+<!--导航 ui组件 inverted反转颜色 attached 依附没有圆角-->
+<!--快捷键div.ui.menu-->
+<nav th:replace="menu(n)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small m-opacity-mini">
+    <!--调整位置-->
+    <div class="ui container">
+        <!--secondary改变样式 stackable可堆叠适应移动端-->
+        <div class="ui inverted secondary stackable menu">
+            <!--item加框 m-mobile-hide在@screen中生效，手机端隐藏 m-item只是方便获取-->
+            <h2 class="ui teal header item">后台管理</h2>
+            <a href="#" th:href="@{/admin/blogs}" class="active m-item item m-mobile-hide"  th:classappend="${n==1} ? 'active'"><i class="home icon"></i>博客</a>
+            <a href="#" th:href="@{/admin/types}" class="m-item item m-mobile-hide" th:classappend="${n==2} ? 'active'"><i class="idea icon"></i>分类</a>
+            <a href="#" th:href="@{/admin/tags}" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'"><i class="tags icon"></i>标签</a>
+            <a href="#" th:href="@{/admin/friends}" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active'"><i class="address book icon"></i>友链</a>
+            <div class="right m-mobile-hide menu">
+                <div class="ui dropdown item">
+                    <div class="text">
+                        <img class="ui avatar image" src="../../static/images/user1.png" th:src="@{${session.user.avatar}}" alt="">
+                        <span th:text="${session.user.nickName}">陈振州</span>
+                    </div>
+                    <i class="icon dropdown"></i>
+                    <div class="menu">
+                        <a href="#" th:href="@{/admin/logout}" class="item">注销</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--自定义绝对布局 非手机端这个菜单按钮不显示 menu toggle 方便通过class获取这个元素-->
+        <a href="#" class="ui menu toggle icon black button m-right-top m-mobile-show">
+            <i class="sidebar icon"></i>
+        </a>
+    </div>
+</nav>
+<!--底部 segment片段 vertical垂直-->
+<footer th:fragment="footer" class="ui inverted vertical segment m-padded-tb-massive m-opacity-mini">
+    <!--所有格子的内容居中-->
+    <div class="ui center aligned container">
+        <!--格子 grid是分为十六份 bootstrap是分为十二份-->
+        <!--divided分割线-->
+        <div class="ui inverted divided stackable grid">
+            <!--配置占用多少格子-->
+            <div class="three wide column">
+                <!--套一个保持格式-->
+                <div class="ui inverted link list">
+                    <div class="item">
+                        <img src="../../static/images/Qr%20code.jpg" th:src="@{/images/Qr%20code.jpg}" alt="" class="ui rounded image" style="width: 110px">
+                    </div>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header m-text-thin m-text-spaced">我的博客已运营</h4>
+                <!--                  <div class="ui inverted link list">-->
+                <!--                      <a href="#" class="item">用户故事(UserStory)</a>-->
+                <!--                      <a href="#" class="item">用户故事(UserStory)</a>-->
+                <!--                      <a href="#" class="item">用户故事(UserStory)</a>-->
+                <!--                  </div>-->
+                <p id="run_time" class="item m-text-thin"></p>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header m-text-thin m-text-spaced">联系我</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item">QQ:179351460</a>
+                    <a href="#" class="item">Email:179351460@qq.com</a>
+                </div>
+            </div>
+            <div class="seven wide column">
+                <div  id="statistics-container" >
+                    <div th:fragment="statisticList">
+                        <h4 class="ui inverted header m-text-thin m-text-spaced">运营数据</h4>
+                        <p class="m-text-thin m-text-spaced m-opacity-mini">博客数量：<span class="m-orange">13</span>&nbsp;篇</p>
+                        <p class="m-text-thin m-text-spaced m-opacity-mini">总评论数：<span class="m-orange">13</span>&nbsp;条</p>
+                        <p class="m-text-thin m-text-spaced m-opacity-mini">总阅读量：<span class="m-orange">13</span>&nbsp;次</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--分割线-->
+        <div class="ui inverted section divider"></div>
+        <!--        <p class="m-text-thin m-text-spaced m-opacity-tiny">CopyRight 2020-2021 Hodor Designed by LML</p>-->
+        <div class="m-text-thin m-text-spaced m-opacity-tiny">
+            <a href="https://beian.miit.gov.cn/#/Integrated/index">
+                <p style="color:#939393;">闽ICP备2021000277号-1</p>
+            </a>
+        </div>
+        <div style="width:300px;margin:0 auto; padding:20px 0;">
+            <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=35052402000291" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;">
+                <p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">闽公网安备 35052402000291号</p>
+            </a>
+        </div>
+    </div>
+</footer>
+
+<th:block th:fragment="script">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <script src="../../static/lib/jquery-scrollTo-master/jquery.scrollTo.js" th:src="@{/lib/jquery-scrollTo-master/jquery.scrollTo.js}"></script>
+    <script src="../../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>
+    <script src="../../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>
+    <script src="../../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script>
+<!--
+    <script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
+-->
+    <script>
+        // 运行时间统计
+        function secondToDate(second) {
+            if (!second) {
+                return 0;
+            }
+            var time = new Array(0, 0, 0, 0, 0);
+            if (second >= 365 * 24 * 3600) {
+                time[0] = parseInt(second / (365 * 24 * 3600));
+                second %= 365 * 24 * 3600;
+            }
+            if (second >= 24 * 3600) {
+                time[1] = parseInt(second / (24 * 3600));
+                second %= 24 * 3600;
+            }
+            if (second >= 3600) {
+                time[2] = parseInt(second / 3600);
+                second %= 3600;
+            }
+            if (second >= 60) {
+                time[3] = parseInt(second / 60);
+                second %= 60;
+            }
+            if (second > 0) {
+                time[4] = second;
+            }
+            return time;
+        }
+        function setTime() {
+            /*此处为网站的创建时间*/
+            var create_time = Math.round(new Date(Date.UTC(2022, 00, 11, 15, 15, 15)).getTime() / 1000);
+            var timestamp = Math.round((new Date().getTime()) / 1000);
+            currentTime = secondToDate((timestamp - create_time));
+            currentTimeHtml = currentTime[0] + '年' + currentTime[1] + '天'
+                + currentTime[2] + '时' + currentTime[3] + '分' + currentTime[4]
+                + '秒';
+            $("#run_time")[0].innerHTML = currentTimeHtml;
+        }
+        setInterval(setTime, 1000);
+
+        //加载运营数据
+        $(function () {
+            $("#statistics-container").load(/*[[@{/statistic}]]*/"/statistic");
+        });
+    </script>
+</th:block>
+
+</body>
+</html>

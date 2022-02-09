@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link rel="stylesheet" href="../static/css/me.css">
+    <title>关于我页</title>
+</head>
+<body>
+<!--导航 ui组件 inverted反转颜色 attached 依附没有圆角 m-shadow-small导航栏的阴影效果-->
+<!--快捷键div.ui.menu-->
+<nav th:replace="_fragments :: nav(5)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
+    <!--调整位置-->
+    <div class="ui container">
+        <!--secondary改变样式 stackable可堆叠适应移动端-->
+        <div class="ui inverted secondary stackable menu">
+            <!--item加框 m-mobile-hide在@screen中生效，手机端隐藏 m-item只是方便获取-->
+            <h2 class="ui teal header item">October</h2>
+            <a href="#" class="m-item item m-mobile-hide"><i class="home icon"></i>首页</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="idea icon"></i>分类</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="tags icon"></i>标签</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="clone icon"></i>归档</a>
+            <a href="#" class="active m-item item m-mobile-hide"><i class="info icon"></i>关于我</a>
+            <!--搜索框-->
+            <div class="m-item right item m-mobile-hide">
+                <!--icon添加图标-->
+                <div class="ui icon input inverted ">
+                    <input type="text" placeholder="Search...">
+                    <!--link鼠标放上去有手的形状-->
+                    <i class="search link icon"></i>
+                </div>
+            </div>
+        </div>
+        <!--自定义绝对布局 非手机端这个菜单按钮不显示 menu toggle 方便通过class获取这个元素-->
+        <a href="#" class="ui menu toggle icon black button m-right-top m-mobile-show">
+            <i class="sidebar icon"></i>
+        </a>
+    </div>
+</nav>
+
+<!--中间内容，container没法改大小，只能外部改-->
+<div class="m-padded-tb-big m-container m-opacity-mini">
+    <!--便于适应移动端-->
+    <div class="ui container">
+        <!--左右布局-->
+        <div class="ui stackable grid">
+            <div class="eleven wide column">
+                <div class="ui segment ">
+                    <img src="../static/images/huge.jpg" th:src="@{/images/huge.jpg}" alt="" class="ui rounded image ">
+                </div>
+            </div>
+            <div class="five wide column">
+                <div class="ui top attached segment">
+                    <div class="ui header center aligned">关于我</div>
+                </div>
+                <div class="ui attached  segment m-text">
+                    <p>When the path is long and obstructed, it will come</p>
+                </div>
+
+                <div class="ui attached teal segment center aligned">
+                    <div class="ui header center aligned" style="color: #02800b">爱好</div>
+                    <!--放置个人标签-->
+                    <div class="ui orange basic label">编程</div>
+                    <div class="ui orange basic label">音乐</div>
+                    <div class="ui orange basic label">思考</div>
+                    <div class="ui orange basic label">运动</div>
+                </div>
+                <div class="ui attached teal segment center aligned">
+                    <div class="ui header center aligned" style="color: #02800b">标签</div>
+
+                    <!--放置个人分类-->
+                    <div class="ui teal basic label m-margin-tb-tiny">SSM</div>
+                    <div class="ui teal basic label m-margin-tb-tiny">Spring Boot</div>
+                    <div class="ui teal basic label m-margin-tb-tiny">JavaScript</div>
+                    <div class="ui teal basic label m-margin-tb-tiny">Mysql</div>
+                    <div class="ui teal basic label m-margin-tb-tiny">semantic  UI</div>
+                    <div class="ui teal basic label m-margin-tb-tiny">Linux</div>
+                </div>
+                <div class="ui bottom attached teal segment  center aligned">
+                    <div class="ui header center aligned" style="color: #02800b">联系方式</div>
+
+                    <!--联系方式-->
+                    <a href="https://github.com/buzhdaoo/zzssm" class="ui  github circular icon button" data-content="点击跳转github" data-position="bottom center"><i class="github icon"></i></a>
+                    <a href="#" class="ui wechatBT circular icon button"><i class="weixin icon"></i></a>
+                    <a href="#" class="ui qq circular icon button" data-content="179351460" data-position="bottom center"><i class="qq icon"></i></a>
+                    <a href="https://blog.csdn.net/buzhdaoo?spm=1000.2115.3001.5343" target="_blank" class="ui csdn circular icon button" data-content="点击跳转CSDN" data-position="bottom center"><i class="copyright outline icon"></i></a>
+                </div><br>
+                <div class="ui wechat-qr flowing popup transition hidden"><br>
+                    <div class="image">
+                        <!--rounded bordered圆角边线-->
+                        <img src="../static/images/Qr%20code.jpg" th:src="@{/images/Qr%20code.jpg}" alt="" class="ui rounded bordered image" style="width: 100px">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--竖直工具按钮组，文章目录和回到最顶部-->
+<!--外层加上div控制不要紧贴右边-->
+<div id="toolbar" class="m-padding m-fix m-right-bottom" style="display: none">
+    <!--m-fix m-right-bottom指定绝对位置,浮在最上面-->
+    <div class="ui vertical icon buttons">
+        <div id="button-toTop" class="ui icon button"><i class="angle up icon"></i></div>
+    </div>
+</div>
+
+<!--底部 segment片段 vertical垂直-->
+<footer th:replace="_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive">
+    <!--所有格子的内容居中-->
+    <div class="ui center aligned container">
+        <!--格子 grid是分为十六份 bootstrap是分为十二份-->
+        <!--divided分割线-->
+        <div class="ui inverted divided stackable grid">
+            <!--配置占用多少格子-->
+            <div class="three wide column">
+                <!--套一个保持格式-->
+                <div class="ui inverted link list">
+                    <div class="item">
+                        <img src="../static/images/Qr%20code.jpg" alt="" class="ui rounded image" style="width: 110px">
+                    </div>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header m-text-thin m-text-spaced">最新博客</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item">用户故事(UserStory)</a>
+                    <a href="#" class="item">用户故事(UserStory)</a>
+                    <a href="#" class="item">用户故事(UserStory)</a>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header m-text-thin m-text-spaced">联系我</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item" th:text="#{index.qq}">QQ:179351460</a>
+                    <a href="#" class="item" th:text="#{index.email}">Email:179351460@qq.com</a>
+                </div>
+            </div>
+            <div class="seven wide column">
+                <h4 class="ui inverted header m-text-thin m-text-spaced">October</h4>
+                <p class="m-text-thin m-text-spaced m-opacity-mini" th:text="#{index.intro}">When the path is long and obstructed, it will come</p>
+            </div>
+        </div>
+        <!--分割线-->
+        <div class="ui inverted section divider"></div>
+        <p class="m-text-thin m-text-spaced m-opacity-tiny">CopyRight © 2021-2031 Designed by CZZ</p>
+    </div>
+</footer>
+<!--/*/<th:block th:replace="_fragments :: script">/*/-->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<!--/*/</th:block>/*/-->
+<script>
+    // 通过jquery在移动端显示和隐藏导航栏
+    $(".menu.toggle").click(function (){
+        $(".m-item").toggleClass("m-mobile-hide");
+    });
+
+    $(".qq").popup();
+
+    $(".csdn").popup();
+
+    $(".github").popup();
+
+    $(".wechatBT").popup({
+        popup : $('.wechat-qr.popup'),
+        on : 'click',
+        position : "bottom center"
+    });
+
+</script>
+</body>
+</html>

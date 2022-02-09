@@ -1,0 +1,22 @@
+#    pro生产环境
+
+spring:
+  #数据库配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/blog?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+    password: buzhdaoo
+    username: root
+#更新表结构的设置
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+#日志配置
+logging:
+  level:
+    root: warn
+    com.yiyi: info
+#设置内置tomcat端口
+server:
+  port: 8081

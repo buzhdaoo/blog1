@@ -1,0 +1,12 @@
+#指定HTML版本
+spring:
+  thymeleaf:
+    mode: HTML
+  profiles:
+    active: dev
+server:
+  servlet:
+    context-path=/:
+
+comment.avatar: /images/avatar.jpg
+reply.avatar: /images/huitail.jpg

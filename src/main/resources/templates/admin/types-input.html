@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
+    <link rel="stylesheet" href="../../static/lib/editormd/css/editormd.min.css" th:href="@{/lib/editormd/css/editormd.min.css}">
+    <title>分类新增</title>
+</head>
+<body>
+<!--导航 ui组件 inverted反转颜色 attached 依附没有圆角 m-shadow-small导航栏的阴影效果-->
+<!--快捷键div.ui.menu-->
+<nav class="ui inverted attached segment m-padded-tb-mini m-shadow-small m-opacity-mini">
+    <!--调整位置-->
+    <div class="ui container">
+        <!--secondary改变样式 stackable可堆叠适应移动端-->
+        <div class="ui inverted secondary stackable menu">
+            <!--item加框 m-mobile-hide在@screen中生效，手机端隐藏 m-item只是方便获取-->
+            <h2 class="ui teal header item">管理后台</h2>
+            <a href="#" th:href="@{/admin/blogs}" class="m-item item m-mobile-hide"><i class="home icon"></i>博客</a>
+            <a href="#" th:href="@{/admin/types}" class="active m-item item m-mobile-hide"><i class="idea icon"></i>分类</a>
+            <a href="#" th:href="@{/admin/tags}" class="m-item item m-mobile-hide"><i class="tags icon"></i>标签</a>
+            <a href="#" th:href="@{/admin/friends}" class="m-item item m-mobile-hide"><i class="address book icon"></i>友链</a>
+            <div class="right m-mobile-hide menu">
+                <div class="ui dropdown item">
+                    <div class="text">
+                        <img class="ui avatar image" src="../../static/images/user1.png" th:src="@{/images/user1.png}">
+                        <span th:text="${session.user.nickName}">陈振州</span>
+                    </div>
+                    <i class="icon dropdown"></i>
+                    <div class="menu">
+                        <a href="#" th:href="@{/admin/logout}" class="item">注销</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--自定义绝对布局 非手机端这个菜单按钮不显示 menu toggle 方便通过class获取这个元素-->
+        <a href="#" class="ui menu toggle icon black button m-right-top m-mobile-show">
+            <i class="sidebar icon"></i>
+        </a>
+    </div>
+</nav>
+
+<!--attached pointing依附带三角 right menu调整位置-->
+<div class="ui attached pointing menu">
+    <div class="ui container">
+        <div class="right menu">
+            <a href="#" class="active teal item">新增</a>
+            <a href="#" th:href="@{/admin/types}" class="item">列表</a>
+        </div>
+    </div>
+</div>
+
+<!--中间内容，container没法改大小，只能外部改-->
+<div class="m-padded-tb-big m-container-small m-opacity-mini">
+    <div class="ui container">
+        <form action="#" method="post" th:object="${type}" th:action="*{id}==null ? @{/admin/types} : @{/admin/types/{id}(id=*{id})}"  class="ui form">
+            <input type="hidden" name="id" th:value="*{id}">
+            <div class="field">
+                <!--内部必须定义label和input action将label和input连接-->
+                <div class="ui labeled action input">
+                    <label class="ui compact teal basic label">分类</label>
+                    <!--fluid使得长度充满-->
+                    <input autofocus="autofocus"  type="text" name="name" placeholder="分类名称" th:value="*{name}">
+                </div>
+            </div>
+
+            <div class="ui error message"></div>
+           <!--/*/
+           <div class="ui negative message" th:if="${#fields.hasErrors('name')}">
+                <i class="close icon"></i>
+                <div th:errors="*{name}" class="header">验证失败</div>
+                <p>提交信息不符合规则</p>
+            </div>
+            /*/-->
+            <div class="ui right aligned container">
+                <button type="button" class="ui button" onclick="window.history.go(-1)">返回</button>
+                <button class="ui teal submit button">提交</button>
+            </div>
+        </form>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+
+<!--底部 segment片段 vertical垂直-->
+<footer class="ui inverted vertical segment m-padded-tb-massive m-opacity-mini">
+    <!--所有格子的内容居中-->
+    <div class="ui center aligned container">
+        <!--格子 grid是分为十六份 bootstrap是分为十二份-->
+        <!--divided分割线-->
+        <div class="ui inverted divided stackable grid">
+            <!--配置占用多少格子-->
+            <div class="three wide column">
+                <!--套一个保持格式-->
+                <div class="ui inverted link list">
+                    <div class="item">
+                        <img src="../../static/images/Qr%20code.jpg" th:src="@{/images/Qr%20code.jpg}" alt="" class="ui rounded image" style="width: 110px">
+                    </div>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header m-text-thin m-text-spaced">我的博客已运营</h4>
+                <p id="run_time" class="item m-text-thin"></p>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header m-text-thin m-text-spaced">联系我</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item">QQ:179351460</a>
+                    <a href="#" class="item">Email:179351460@qq.com</a>
+                </div>
+            </div>
+            <div class="seven wide column">
+                <h4 class="ui inverted header m-text-thin m-text-spaced">October</h4>
+                <p class="m-text-thin m-text-spaced m-opacity-mini">When the path is long and obstructed, it will come</p>
+            </div>
+        </div>
+        <!--分割线-->
+        <div class="ui inverted section divider"></div>
+        <p class="m-text-thin m-text-spaced m-opacity-tiny">CopyRight © 2021-2031 Designed by CZZ</p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+<script type="text/javascript">
+    // 通过jquery在移动端显示和隐藏导航栏
+    $(".menu.toggle").click(function (){
+        $(".m-item").toggleClass("m-mobile-hide");
+    });
+
+    $('.ui.dropdown')
+        .dropdown();
+
+    // identifier指定name
+    $('.ui.form').form({
+        fields:{
+            name:{
+                identifier:'name',
+                rules:[{
+                    type: 'empty',
+                    prompt: '请输入分类名'
+                }]
+            }
+        }
+    });
+
+    $('.message .close')
+        .on('click', function () {
+            $(this)
+                .closest('.message')
+                .transition('fade');
+        });
+
+    // 运行时间统计
+    function secondToDate(second) {
+        if (!second) {
+            return 0;
+        }
+        var time = [0, 0, 0, 0, 0];
+        if (second >= 365 * 24 * 3600) {
+            time[0] = parseInt(second / (365 * 24 * 3600));
+            second %= 365 * 24 * 3600;
+        }
+        if (second >= 24 * 3600) {
+            time[1] = parseInt(second / (24 * 3600));
+            second %= 24 * 3600;
+        }
+        if (second >= 3600) {
+            time[2] = parseInt(second / 3600);
+            second %= 3600;
+        }
+        if (second >= 60) {
+            time[3] = parseInt(second / 60);
+            second %= 60;
+        }
+        if (second > 0) {
+            time[4] = second;
+        }
+        return time;
+    }
+    function setTime() {
+        /*此处为网站的创建时间*/
+        var create_time = Math.round(new Date(Date.UTC(2022, 0, 11, 15, 15, 15)).getTime() / 1000);
+        var timestamp = Math.round((new Date().getTime()) / 1000);
+        currentTime = secondToDate((timestamp - create_time));
+        currentTimeHtml = currentTime[0] + '年' + currentTime[1] + '天'
+            + currentTime[2] + '时' + currentTime[3] + '分' + currentTime[4]
+            + '秒';
+        $("#run_time")[0].innerHTML = currentTimeHtml;
+    }
+    setInterval(setTime, 1000);
+
+</script>
+</body>
+</html>
